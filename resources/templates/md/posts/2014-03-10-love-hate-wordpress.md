@@ -3,6 +3,8 @@
 
 ## WordPress is a great first web technology to learn. Wait, no it's not.
 
+Warning: what follows is a pretty thinly veiled rant, but one I've felt bubbling quite turbulent below the surface for years now. I've made a feeble effort to disguise it as beginner advice. You'll probably see right through that, but maybe someone will benefit from it anyway.
+
 WordPress is amazing. When I started ~~cobbling websites together~~ my professional web development career, I thought it was the greatest thing since, like, [PHP](https://eev.ee/blog/2012/04/09/php-a-fractal-of-bad-design/).
 
 *WordPress lets you do anything!* I would think, bright-eyed.
@@ -13,7 +15,7 @@ Now that I've had some time to reflect and, more importantly, actually write and
 
 ## Why WordPress Sucks
 
-Take the data "layer" for instance. It's not really a layer (and to be fair, [it doesn't pretend to be](https://codex.wordpress.org/Class_Reference/wpdb)). It's a global object. Here's how you'd perform a custom query against your WP database:
+Take `$wpdb`. It's not really a layer (and to be fair, [it doesn't pretend to be](https://codex.wordpress.org/Class_Reference/wpdb)). It's a global object. Here's how you'd perform a custom query against your WP database:
 
 ```php
 global $wpdb;
@@ -27,7 +29,14 @@ $wpdb->get_results(
 
 You probably wouldn't run this query directly through the `$wpdb` object in practice, since WordPress provides abstractions for simple data access like this. But the point stands that "Oh, I know, I'll just make it a global object" is not really a design decision so much as a design non-decision. Or, if you want to be harsh about it, it's a decision *not to have* a design. "Rather than code up a whole OO architecture, I'm just going to leave this global state lying around and let people do whatever they want with it."
 
-The problem with this, in case you don't know, is that code that relies on global state is really brittle, meaning you can break things in other areas that 
+The problem with this, in case you don't know, is that code that relies on global state is really brittle, meaning you can break it easily, even from other parts of the code that have nothing to do with it. Say, for instance, that you wanted to link to a specific post in one of your templates. You might do something like:
+
+```php
+$post = get_post(345); ?>
+<a href="<?= get_permalink($post->ID) ?>>
+```
+
+
 
 At least this ~~problem~~ design is [well documented](https://codex.wordpress.org/Global_Variables).
 
