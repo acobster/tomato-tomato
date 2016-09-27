@@ -7,7 +7,7 @@
  :post-root-uri      "" ; root dir
  :page-root-uri      "" ; root dir
  :tag-root-uri       "" ; root dir
- :blog-prefix        "/"
+ :blog-prefix        ""
  :rss-name           "feed.xml"
  :rss-filters        ["cryogen"]
  :recent-posts       3
