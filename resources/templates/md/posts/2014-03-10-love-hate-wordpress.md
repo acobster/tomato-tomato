@@ -15,7 +15,7 @@ Now that I've had some time to reflect and, more importantly, actually write and
 
 **Warning: If you can't tell by now, what follows is a scathing rant. I've made a feeble effort to disguise it as beginner advice and even add some nuance! You'll probably see right through that, but hopefully somebody somewhere will find this helpful anyway.**
 
-Take `$wpdb`. It's not really a layer (and to be fair, [it doesn't pretend to be](https://codex.wordpress.org/Class_Reference/wpdb)). It's a global object. Here's how you'd perform a custom query against your WP database:
+Take `$wpdb`. It's not really a data layer (and to be fair, [it doesn't pretend to be](https://codex.wordpress.org/Class_Reference/wpdb)). It's a global object. Here's how you'd perform a custom query against your WP database:
 
 ```php
 global $wpdb;
@@ -82,37 +82,13 @@ Here we display some info about the author, and then we display their posts. Pre
 
 Here we do the same thing, but it's not nearly as obvious. What is `the_post`? Turns out it's responsible for setting our global `$post` variable. Why do we need to do that? Turns out `get_the_author` and friends are designed to work under the assumption that you've already set `$post`. So aside from having a terrible name, `the_post` obfuscates what's going on: even as a WP coder of 5+ years, I scratched my head over this example before I realized what it was doing. We iterate through the posts just to get some information that doesn't have to do with the posts directly; then we wind *back* the iteration to actually display each post's info. If we forget that step, we skip displaying the first post.
 
-This gets a lot more complicated when you want to abstract this pattern across reusabled template components (which WordPress recommends you do, to its credit). You might not need to call `rewind_posts` initially, but then one of your 
+This gets a lot more complicated when you want to abstract this pattern across reusabled template components. And when your site starts to become even moderately complex, chances are you'll sometimes need something in your 
 
-Let's talk about their core API: the way WordPress lets you extend its functionality. Say I wanted to, oh I dunno, [modify some content](https://codex.wordpress.org/Plugin_API/Filter_Reference/the_content) before it gets rendered. That seems like a pretty basic use-case, right? Here's what I might do:
+### functions.php: The Dumping Ground
 
-```php
-add_filter( 'the_content', 'my_the_content_filter', 20 );
-/**
- * Add a icon to the beginning of every post page.
- *
- * @uses is_single()
- */
-function my_the_content_filter( $content ) {
+There's a file required for every WordPress theme called functions.php. The name says a lot: this is where the WordPress documentation encourages you to dump pretty much any custom behavior that's not unique to one template. Custom data-fetching code gets pasted in right next to custom helper functions for rendering stuff, right alongside stuff that does both within the same function!
 
-    if ( is_single() )
-        // Add image to the beginning of each page
-        $content = sprintf(
-            '<img class="post-icon" src="%s/images/post_icon.png" alt="Post icon" title=""/>%s',
-            get_bloginfo( 'stylesheet_directory' ),
-            $content
-        );
-
-    // Returns the content.
-    return $content;
-}
-```
-
-Now, if I'm a regular WP dev, I add that to my `functions.php` because that's where functions and stuff go. If you're not familiar, that code snippet is straight from the "Codex," WordPress's developer doc site.
-
-Later, if you want to, say, modify how WordPress runs a query, you'd do something kinda like this except with a different hook and your function takes a different thing to modify and then you stick that in `functions.php` as well.
-
-Have you heard of separation of concerns? That's another pretty fundamental principle software that goes hand-in-hand with encapsulation, and forms the basis of the Unix philosophy: do one thing well.
+Now, sometimes 
 
 Let me just end this section by pointing out that the WordPress motto is "Code is Poetry." Ugh.
 
@@ -124,14 +100,13 @@ There are [so many plugins](https://wordpress.org/plugins/).
 
 ### ALL THE DOCS
 
-The [Codex](https://codex.wordpress.org/Plugin_API/Filter_Reference/) is an enormous wealth of information. It's obvious that the WordPress core devs and supporting volunteers really, really care about educating people 
+The [Codex](https://codex.wordpress.org/Plugin_API/Filter_Reference/) is an enormous wealth of information. It's obvious that the WordPress core devs and supporting volunteers really, really care about educating people on how to use WordPress. This is not to be taken lightly.
 
 ### ALL THE HOOKS
 
 ### ALSO
 
 * It's stable and fairly secure, I think
-* 
 
 ## Why WordPress Is a Great First Web Framework...
 
