@@ -23,6 +23,26 @@ article a:focus, article a:hover {
     background-size: 100% 1px;
 }
 
+article p, article ul {
+    font-family: Georgia, Cambria, Times, serif;
+}
+
+pre {
+    overflow-x: auto;
+}
+pre code {
+    overflow-wrap: normal;
+    white-space: pre;
+}
+
+code {
+    color: #A01F2E;
+}
+
+pre, code, .hljs {
+    background-color: #e4eaf7;
+}
+
 .container {
     max-width: 1000px;
 }
@@ -164,22 +184,6 @@ footer {
 }
 #page-header h2 {
     font-size: 32px;
-}
-
-pre {
-    overflow-x: auto;
-}
-pre code {
-    overflow-wrap: normal;
-    white-space: pre;
-}
-
-code {
-    color: #A01F2E;
-}
-
-pre, code, .hljs {
-    background-color: #e4eaf7;
 }
 
 @media (min-width: 768px) {
