@@ -25,6 +25,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="{{index-uri}}">{{title}}</a>
+            <span class="navbar-subtitle">{{description}}</span>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -83,8 +84,11 @@
             </div>
         </div>
     </div>
-    <footer>Copyright &copy; {{today|date:yyyy}} {{author}}
-        <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
+    <footer>
+        <p><span class="copyleft">&copy;</span> {{today|date:yyyy}} {{author}}</p>
+        <p>Creative Commons License (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>)</p>
+        <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p>
+    </footer>
 </div>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
