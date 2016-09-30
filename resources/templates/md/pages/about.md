@@ -3,7 +3,7 @@
  :page-index 0
  :navbar? true}
 
-Web dev and musician in Tacoma, Washington. Currently working at SiteCrafting.
+Web dev and musician in Tacoma, Washington. Currently working at [SiteCrafting](http://www.sitecrafting.com).
 
 Here are some things:
 
