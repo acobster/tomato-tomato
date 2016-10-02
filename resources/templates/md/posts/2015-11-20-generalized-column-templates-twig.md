@@ -29,7 +29,7 @@ This lets us easily style each half of the list as its own column. So far so goo
 
 ## Let's do maths
 
-The short answer is simple division: code our templates to figure out on the fly how many items to put in each list. You can do this quite easily in Twig using the batch filter (which uses PHP's [array_chunk()](http://php.net/manual/en/function.array-chunk.php) function behind the scenes):
+The short answer is simple division: code our templates to figure out on the fly how many items to put in each list. You can do this quite easily in Twig using the `batch` filter (which uses PHP's [array_chunk()](http://php.net/manual/en/function.array-chunk.php) function behind the scenes):
 
 ```twig
 {# Get chunk length by rounding items per column up to nearest whole #}
@@ -51,7 +51,7 @@ The short answer is simple division: code our templates to figure out on the fly
 
 Do you see what's happening here? We first pipe our collection of items through the `length` filter to count them, then divide that number by two, rounding up to the nearest whole. Given the way `array_chunk()` works, we round up so that, if we happen to split an odd number of items into chunks, we display the longer chunk on the left.
 
-Now that we have our `chunk_len`, we simply pipe our list into the batch filter. This says: "split my items into chunks of length `chunk_len` at most." After that, it's a simple matter of nested loops to output the markup for each column.
+Now that we have our `chunk_len`, we simply pipe our list into the `batch` filter. This says: "split my items into chunks of length `chunk_len` at most." After that, it's a simple matter of nested loops to output the markup for each column.
 
 ## Abstraction
 

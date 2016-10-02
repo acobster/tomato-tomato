@@ -29,13 +29,15 @@ observer.observe(page1, {attributes: true, attributeFilter: ['style']});
 </script>
 ```
 
-This basically says: *Hey, JS, watch the `#page1` element for me!* The object literal (`{attributes: true, attributeFilter: ['style']}`) that gets passed into the `observe` method is me telling it: *Oh, and just watch for changes to **attributes** on that element, and I really only care about the `style` attribute. K thx!*
+This basically says: *Hey, JS, watch the `#page1` element for me!* The object literal (`{attributes: true, attributeFilter: ['style']}`) that gets passed into the `observe` method is me saying: *Oh, and just watch for changes to **attributes** on that element, and I really only care about the `style` attribute. K thx!*
 
 Then I ran my two test cases again. When loading the page with the iframe directly visible, the "mutation observed!" showed up in the console right away, along with the `MutationRecord` object at `records[0]` (an array of these gets passed in to give your observers more context about what happened, which is nice). Then, when loading with the iframe off-canvas, no console message shows up. Bingo!
 
 So we know that the call to `$.show()` in the bookblock code just isn't running. Cool! Why not?
 
 It turns out that the iframe's (lack of) visibility caused some parameter to the `$.bookblock()` method to not be set properly, preventing `$.show()` from being called. Granted, we could have figured this out by un-minifying the BookBlock code and debugging it directly. But `MutationObserver` let us a quickly confirm that it was something *in or upstream of* the lookbook code, rather than something downstream resetting it. This in turn saved us from spending time trying to understand BookBlock implementation details just to figure out where to start debugging.
+
+I haven't had a reason to use `MutationObserver` in production code just yet, I can see it becoming one of my go-to debugging tools for when I'm working with complex or unfamiliar JS making lots of changes to the DOM. Looking forward to using it again!
 
 
 
