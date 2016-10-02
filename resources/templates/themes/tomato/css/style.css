@@ -63,6 +63,10 @@ pre, code, .hljs {
     border: none;
 }
 
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border: none;
+}
+
 .navbar-default .navbar-brand {
     color: #fff;
     font-family: 'Alegreya';
@@ -221,6 +225,11 @@ footer {
     }
     .navbar-subtitle {
         margin: 0 1em 1em;
+    }
+    .navbar-nav {
+        display: flex;
+        width: 100%;
+        justify-content: center;
     }
     #content{
         padding: 15px;
